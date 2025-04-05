@@ -1,5 +1,13 @@
 <!DOCTYPE html>
 <html lang="fr">
+<?php
+require_once '../config/db.php';
+require_once '../config/config.php';
+$bdd = ConnexionDB::getInstance();
+$query = $bdd->query("SELECT *
+                      FROM sections");
+$sections = $query->fetchAll();
+?>
 
 <head>
     <meta charset="UTF-8">
@@ -59,22 +67,16 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>GL</td>
-                    <td>Génie Logiciel</td>
-                    <td>
-                        <button class="btn btn-info btn-sm"><i class="fas fa-bars"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>RT</td>
-                    <td>Réseau et Télécommunication</td>
-                    <td>
-                        <button class="btn btn-info btn-sm"><i class="fas fa-bars"></i></button>
-                    </td>
-                </tr>
+                <?php foreach ($sections as $section) : ?>
+                    <tr>
+                        <td><?= $section['id'] ?></td>
+                        <td><?= $section['designation'] ?></td>
+                        <td><?= $section['description'] ?></td>
+                        <td>
+                            <button class="btn btn-info btn-sm"><i class="fas fa-bars"></i></button>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
             </tbody>
         </table>
     </div>
