@@ -87,7 +87,7 @@ $students = $query->fetchAll();
                         <td>
                             <a class="btn btn-info btn-sm"><i class="fas fa-eye"></i></a>
                             <a class="btn btn-warning btn-sm" href="editStudent.php?id=<?php echo $student['id']; ?>&name=<?php echo urlencode($student['name']); ?>&birthday=<?php echo $student['birthday']; ?>&section=<?php echo $student['section_id']; ?>"><i class="fas fa-edit"></i></a>
-                            <a class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+                            <a class="btn btn-danger btn-sm" href="deleteStudent.php?id=<?php echo $student['id']; ?>" onclick="return confirm('Are you sure you want to delete this student?');"><i class="fas fa-trash"></i></a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
