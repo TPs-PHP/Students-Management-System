@@ -34,7 +34,7 @@
     <div class="container">
         <div class="login-container">
             <h3 class="text-center">Add Student</h3>
-            <form action="login.php" method="POST">
+            <form action="addStudent.php" method="POST" enctype="multipart/form-data">
                 <!-- First Name -->
                 <div class="mb-3">
                     <label for="firstName" class="form-label">First Name</label>
@@ -53,6 +53,12 @@
                     <input type="date" class="form-control" id="birthday" name="birthday" required>
                 </div>
 
+                <!-- Image Upload -->
+                <div class="mb-3">
+                    <label for="image" class="form-label">Image</label>
+                    <input type="file" class="form-control" id="image" name="image" accept="image/*" required>
+                </div>
+
                 <!-- Section -->
                 <div class="mb-3">
                     <label for="section" class="form-label">Section</label>
@@ -68,7 +74,7 @@
                 </div>
 
                 <!-- Add Button -->
-                <button type="submit" class="btn btn-primary w-100">Add</button>
+                <button type="submit" name="submit" class="btn btn-primary w-100">Add</button>
 
             </form>
         </div>
@@ -78,9 +84,28 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 <?php
+require_once '../config/db.php';
+require_once '../config/config.php';
+$bdd = ConnexionDB::getInstance();
 if (isset($_POST['submit'])) {
-    $email = $_POST['email'] ?? '';
-    $password = $_POST['password'] ?? '';
+    $name = $_POST['firstName'] . ' ' . $_POST['lastName'];
+    $birthday = $_POST['birthday'];
+    $section = $_POST['section'];
+    $image = $_FILES['image']['name'];
+    $target_dir = "../uploads/";
+    $target_file = $target_dir . basename($_FILES["image"]["name"]);
+
+    // Validate image
+    $allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
+    if (!in_array($_FILES['image']['type'], $allowed_types)) {
+        echo "<script>alert('Invalid image format. Only JPG, PNG, and GIF allowed.');</script>";
+    } elseif (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+        $stmt = $bdd->prepare("INSERT INTO students (name, birthday, section_id, image) VALUES (?, ?, ?, ?)");
+        $stmt->execute([$name, $birthday, $section, $image]);
+        echo "<script>alert('Student added successfully!'); window.location.href='listeEtudiants.php';</script>";
+    } else {
+        echo "<script>alert('Failed to upload image.');</script>";
+    }
 }
 ?>
 

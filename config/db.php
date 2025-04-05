@@ -4,7 +4,7 @@ require_once 'config.php';
 
 class ConnexionDB
 {
-    private $pdo;
+    private static $bdd = null;
 
     private function __construct()
     {
@@ -17,19 +17,19 @@ class ConnexionDB
         ];
 
         try {
-            // Establish the connection and assign to the $pdo
-            $this->pdo = new PDO($dsn, DB_USER, DB_PASS, $options);
+            self::$bdd = new PDO($dsn, DB_USER, DB_PASS, $options);
         } catch (\PDOException $e) {
             // If the connection fails, throw an exception
             throw new \PDOException($e->getMessage(), (int)$e->getCode());
         }
     }
-    public function getConnection()
+    public static function getInstance()
     {
-        if (!isset($this->pdo)) {
-            // If the connection is not established, create a new instance
-            $this->pdo = new self();
+        // Check if the instance already exists
+        if (!self::$bdd) {
+            // If not, create a new instance
+            new ConnexionDB();
         }
-        return $this->pdo;
+        return self::$bdd;
     }
 }

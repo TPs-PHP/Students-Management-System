@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 05, 2025 at 04:06 PM
+-- Generation Time: Apr 05, 2025 at 10:22 PM
 -- Server version: 8.0.41
 -- PHP Version: 8.2.12
 
@@ -64,9 +64,10 @@ CREATE TABLE `students` (
 --
 
 INSERT INTO `students` (`id`, `name`, `birthday`, `image`, `section_id`) VALUES
-(1, 'Ali Ben Salah', '2000-05-20', 'ali.jpg', 1),
-(2, 'Sonia Trabelsi', '1999-11-15', 'sonia.jpg', 2),
-(3, 'Karim Jaziri', '2001-02-10', 'karim.jpg', 1);
+(4, 'Lionel Messi', '1987-06-24', 'messi.jpg', 4),
+(5, 'Cristiano Ronaldo', '1985-02-05', 'ronaldo.jpg', 3),
+(6, 'Wahbi Khazri', '1991-02-08', 'khazri.jpg', 1),
+(7, 'Pablo Gavi', '2004-08-05', 'gavi.jpg', 2);
 
 -- --------------------------------------------------------
 
@@ -129,7 +130,7 @@ ALTER TABLE `sections`
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `users`
