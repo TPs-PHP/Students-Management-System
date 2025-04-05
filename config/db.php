@@ -6,7 +6,7 @@ class ConnexionDB
 {
     private $pdo;
 
-    public function __construct()
+    private function __construct()
     {
         $charset = 'utf8mb4';
         $dsn = "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=$charset";
@@ -26,6 +26,10 @@ class ConnexionDB
     }
     public function getConnection()
     {
+        if (!isset($this->pdo)) {
+            // If the connection is not established, create a new instance
+            $this->pdo = new self();
+        }
         return $this->pdo;
     }
 }
