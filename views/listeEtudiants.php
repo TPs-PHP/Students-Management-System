@@ -56,12 +56,14 @@ $students = $query->fetchAll();
             <a class="btn btn-primary" href="addStudent.php"><i class="fas fa-user-plus"></i></a>
         </div>
         <!-- Buttons -->
-        <div class="mb-3 p-2">
+        <!--
+            <div class="mb-3 p-2">
             <button class="btn btn-secondary"><i class="fas fa-copy"></i> Copy</button>
             <button class="btn btn-secondary"><i class="fas fa-file-excel"></i> Excel</button>
             <button class="btn btn-secondary"><i class="fas fa-file-csv"></i> CSV</button>
             <button class="btn btn-secondary"><i class="fas fa-file-pdf"></i> PDF</button>
         </div>
+        -->
         <!-- Table -->
         <table id="studentsTable" class="table pt-3 table-bordered table-hover">
             <thead>
@@ -98,11 +100,33 @@ $students = $query->fetchAll();
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 
-</body>
+    <!-- JSZip (pour Excel) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+
+    <!-- pdfmake (pour PDF) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+
+    <!-- DataTables Buttons JS -->
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+    
+
+
+</body> 
 <script>
     $(document).ready(function() {
-        $('#studentsTable').DataTable();
+        $('#studentsTable').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                {extend : 'copy', className : "btn btn-secondary", text: '<i class="fas fa-copy"></i> Copy', action: function (e, dt, node, config) {alert('Data has been copied to the clipboard!');}},
+                {extend : 'excel', className : "btn btn-secondary", text : '<i class="fas fa-file-excel"></i> Excel'},
+                {extend : 'csv', className : "btn btn-secondary", text : '<i class="fas fa-file-csv"></i> CSV'},
+                {extend : 'pdf', className : "btn btn-secondary", text : '<i class="fas fa-file-pdf"></i> PDF'}, 
+            ]
+        });
     });
 </script>
+
 
 </html>
