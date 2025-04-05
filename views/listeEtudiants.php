@@ -42,7 +42,7 @@
             <h4>Liste des étudiants</h4>
         </div>
         <div class="mb-3">
-            <input type="text" class="form-control d-inline-block w-50" placeholder="Veuillez renseigner votre">
+            <input type="text" class="form-control d-inline-block w-50" placeholder="Veuillez renseigner votre nom">
             <button class="btn btn-danger">Filtrer</button>
             <button class="btn btn-primary"><i class="fas fa-user-plus"></i></button>
         </div>
