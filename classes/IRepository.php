@@ -1,6 +1,6 @@
 <?php
 
-interface IRepositiry{
+interface IRepository{
     function findAll();
     function findById($id);
     function create($params);

@@ -86,22 +86,26 @@
 <?php
 require_once '../config/db.php';
 require_once '../config/config.php';
-$bdd = ConnexionDB::getInstance();
+require_once '../classes/StudentRepository.php';
+//$bdd = ConnexionDB::getInstance();
+$student_repo = new StudentRepository();
 if (isset($_POST['submit'])) {
-    $name = $_POST['firstName'] . ' ' . $_POST['lastName'];
-    $birthday = $_POST['birthday'];
-    $section = $_POST['section'];
-    $image = $_FILES['image']['name'];
+    $params= [
+    'name' => $_POST['firstName'] . ' ' . $_POST['lastName'],
+    "birthday" => $_POST['birthday'],
+    "section_id" => $_POST['section'],
+    'image' => $_FILES['image']['name']
+    ];
     $target_dir = "../uploads/";
     $target_file = $target_dir . basename($_FILES["image"]["name"]);
-
     // Validate image
     $allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
     if (!in_array($_FILES['image']['type'], $allowed_types)) {
         echo "<script>alert('Invalid image format. Only JPG, PNG, and GIF allowed.');</script>";
     } elseif (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
-        $stmt = $bdd->prepare("INSERT INTO students (name, birthday, section_id, image) VALUES (?, ?, ?, ?)");
-        $stmt->execute([$name, $birthday, $section, $image]);
+        /*$stmt = $bdd->prepare("INSERT INTO students (name, birthday, section_id, image) VALUES (?, ?, ?, ?)");
+        $stmt->execute([$name, $birthday, $section, $image]);*/
+        $student_repo->create($params);
         echo "<script>alert('Student added successfully!'); window.location.href='listeEtudiants.php';</script>";
     } else {
         echo "<script>alert('Failed to upload image.');</script>";
