@@ -4,11 +4,12 @@
 require_once '../config/db.php';
 require_once '../config/config.php';
 $bdd = ConnexionDB::getInstance();
-$query = $bdd->query("SELECT students.id, students.name, students.birthday, students.image, sections.designation AS section 
+$query = $bdd->query("SELECT students.id, students.name, students.birthday, students.image, sections.designation AS section, sections.id AS section_id
                       FROM students 
                       JOIN sections ON students.section_id = sections.id");
 $students = $query->fetchAll();
 ?>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -75,18 +76,18 @@ $students = $query->fetchAll();
             </thead>
             <tbody>
                 <?php foreach ($students as $student): ?>
-                <tr>
-                    <td><?php echo $student['id']; ?></td>
-                    <td><img src="<?php echo "../uploads/".$student['image']; ?>" class="rounded-circle" width="50" height="50"></td>
-                    <td><?php echo $student['name']; ?></td>
-                    <td><?php echo $student['birthday']; ?></td>
-                    <td><?php echo $student['section']; ?></td>
-                    <td>
-                        <button class="btn btn-info btn-sm"><i class="fas fa-eye"></i></button>
-                        <button class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
-                    </td>
-                </tr>
+                    <tr>
+                        <td><?php echo $student['id']; ?></td>
+                        <td><img src="<?php echo "../uploads/" . $student['image']; ?>" class="rounded-circle" width="50" height="50"></td>
+                        <td><?php echo $student['name']; ?></td>
+                        <td><?php echo $student['birthday']; ?></td>
+                        <td><?php echo $student['section']; ?></td>
+                        <td>
+                            <a class="btn btn-info btn-sm"><i class="fas fa-eye"></i></a>
+                            <a class="btn btn-warning btn-sm" href="editStudent.php?id=<?php echo $student['id']; ?>&name=<?php echo urlencode($student['name']); ?>&birthday=<?php echo $student['birthday']; ?>&section=<?php echo $student['section_id']; ?>"><i class="fas fa-edit"></i></a>
+                            <a class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+                        </td>
+                    </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
