@@ -64,9 +64,7 @@
                     <td>GL</td>
                     <td>Génie Logiciel</td>
                     <td>
-                        <button class="btn btn-info btn-sm"><i class="fas fa-eye"></i></button>
-                        <button class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+                        <button class="btn btn-info btn-sm"><i class="fas fa-bars"></i></button>
                     </td>
                 </tr>
                 <tr>
@@ -74,9 +72,7 @@
                     <td>RT</td>
                     <td>Réseau et Télécommunication</td>
                     <td>
-                        <button class="btn btn-info btn-sm"><i class="fas fa-eye"></i></button>
-                        <button class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+                        <button class="btn btn-info btn-sm"><i class="fas fa-bars"></i></button>
                     </td>
                 </tr>
             </tbody>
