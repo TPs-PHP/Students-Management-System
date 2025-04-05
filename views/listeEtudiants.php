@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="fr">
-
+<?php
+require_once '../config/db.php';
+require_once '../config/config.php';
+$bdd = ConnexionDB::getInstance();
+$query = $bdd->query("SELECT students.id, students.name, students.birthday, students.image, sections.designation AS section 
+                      FROM students 
+                      JOIN sections ON students.section_id = sections.id");
+$students = $query->fetchAll();
+?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -66,30 +74,20 @@
                 </tr>
             </thead>
             <tbody>
+                <?php foreach ($students as $student): ?>
                 <tr>
-                    <td>1</td>
-                    <td><img src="https://via.placeholder.com/50" class="rounded-circle" width="50"></td>
-                    <td>Aymen</td>
-                    <td>1982-02-07</td>
-                    <td>GL</td>
+                    <td><?php echo $student['id']; ?></td>
+                    <td><img src="<?php echo "../uploads/".$student['image']; ?>" class="rounded-circle" width="50" height="50"></td>
+                    <td><?php echo $student['name']; ?></td>
+                    <td><?php echo $student['birthday']; ?></td>
+                    <td><?php echo $student['section']; ?></td>
                     <td>
                         <button class="btn btn-info btn-sm"><i class="fas fa-eye"></i></button>
                         <button class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></button>
                         <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
                     </td>
                 </tr>
-                <tr>
-                    <td>2</td>
-                    <td><img src="https://via.placeholder.com/50" class="rounded-circle" width="50"></td>
-                    <td>Skander</td>
-                    <td>2018-07-11</td>
-                    <td>GL</td>
-                    <td>
-                        <button class="btn btn-info btn-sm"><i class="fas fa-eye"></i></button>
-                        <button class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
-                    </td>
-                </tr>
+                <?php endforeach; ?>
             </tbody>
         </table>
     </div>
