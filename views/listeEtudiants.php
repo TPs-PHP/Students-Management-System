@@ -44,7 +44,7 @@
         <div class="mb-3">
             <input type="text" class="form-control d-inline-block w-50" placeholder="Veuillez renseigner votre nom">
             <button class="btn btn-danger">Filtrer</button>
-            <button class="btn btn-primary"><i class="fas fa-user-plus"></i></button>
+            <a class="btn btn-primary" href="addStudent.php"><i class="fas fa-user-plus"></i></a>
         </div>
         <!-- Buttons -->
         <div class="mb-3 p-2">
