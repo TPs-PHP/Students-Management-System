@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Apr 05, 2025 at 11:43 PM
--- Server version: 8.0.41
--- PHP Version: 8.2.12
+-- Hôte : 127.0.0.1
+-- Généré le : dim. 06 avr. 2025 à 12:25
+-- Version du serveur : 8.0.41
+-- Version de PHP : 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -64,11 +64,13 @@ CREATE TABLE `students` (
 --
 
 INSERT INTO `students` (`id`, `name`, `birthday`, `image`, `section_id`) VALUES
-(1, 'Lionel Messi', '1987-06-24', 'messi.jpg', 4),
-(2, 'Cristiano Ronaldo', '1985-02-05', 'ronaldo.jpg', 3),
 (3, 'Wahbi Khazri', '1991-02-08', 'khazri.jpg', 1),
 (4, 'Pablo Gavi', '2004-08-05', 'gavi.jpg', 2),
-(5, 'Lamine Yamal', '2007-07-13', 'yamal.jpg', 6);
+(9, 'Youcef Blaili', '1992-03-15', 'blaili.jpg', 5),
+(10, 'Lionel Messi', '1987-06-24', 'messi.jpg', 2),
+(11, 'Lamine Yamal', '2007-07-13', 'yamal.jpg', 6),
+(12, 'Kylian Mbappé', '1998-12-20', 'mbappe.jpg', 3),
+(13, 'Cristiano Ronaldo', '1985-02-05', 'ronaldo.jpg', 4);
 
 -- --------------------------------------------------------
 
@@ -131,7 +133,7 @@ ALTER TABLE `sections`
 -- AUTO_INCREMENT pour la table `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT pour la table `users`

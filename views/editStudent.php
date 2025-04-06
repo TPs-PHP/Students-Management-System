@@ -3,6 +3,7 @@
 <?php
 require_once '../config/db.php';
 require_once '../config/config.php';
+
 $bdd = ConnexionDB::getInstance();
 
 // Get values from URL
@@ -103,6 +104,8 @@ $lastName = $nameParts[1] ?? '';
 </body>
 
 <?php
+require_once '../classes/StudentRepository.php';
+$studentRepo = new StudentRepository();
 if (isset($_POST['submit'])) {
     // Use the ID from the hidden field instead of $_GET
     $id = $_POST['id'] ?? null;
@@ -120,19 +123,29 @@ if (isset($_POST['submit'])) {
         echo "<script>alert('Invalid image format. Only JPG, PNG, and GIF allowed.');</script>";
     } elseif (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
         // Check if the student exists
-        $stmt = $bdd->prepare("SELECT COUNT(*) FROM students WHERE id = ?");
+        /*$stmt = $bdd->prepare("SELECT COUNT(*) FROM students WHERE id = ?");
         $stmt->execute([$id]);
         $count = $stmt->fetchColumn();
-
-        if ($count == 0) {
+        */
+        $stmt = $studentRepo->findById($id);
+        if (/*$count == 0*/ !$stmt) {
             echo "<script>alert('Student not found.'); window.location.href='listeEtudiants.php';</script>";
             exit;
         }
 
         // Prepare the update query
+        $params = [
+            'name' => $name,
+            'birthday' => $birthday,
+            'section_id' => $section,
+            'image' => $image,
+            'id' => $id
+        ];
+        /*
         $stmt = $bdd->prepare("UPDATE students SET name = ?, birthday = ?, section_id = ?, image = ? WHERE id = ?");
         $result = $stmt->execute([$name, $birthday, $section, $image, $id]);
-
+        */
+        $result = $studentRepo->update($params);
         if (!$result) {
             var_dump($stmt->errorInfo());
         } else {

@@ -34,12 +34,22 @@ abstract class Repository implements IRepository {
 
         $query = "INSERT INTO {$this->tableName} ({$keys_str}) VALUES ({$param_elements_str})";
         $reponse = $this->db->prepare($query);
-        $reponse->execute(array_values($params));
+        return $reponse->execute(array_values($params));
     }
 
     public function delete($id) {
         $query = "DELETE FROM {$this->tableName} WHERE id = ?";
         $response = $this->db->prepare($query);
-        $response->execute([$id]);
+        return $response->execute([$id]);
+    }
+
+    public function update($params) {
+        $id = $params['id'];
+        unset($params['id']);
+
+        $set_clause = implode(' = ?, ', array_keys($params)) . ' = ?';
+        $query = "UPDATE {$this->tableName} SET {$set_clause} WHERE id = ?";
+        $response = $this->db->prepare($query);
+        return $response->execute(array_merge(array_values($params), [$id]));
     }
 }
