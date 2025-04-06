@@ -13,7 +13,7 @@ abstract class Repository implements IRepository {
 
     public function findAll() {
         $query = "SELECT * FROM {$this->tableName}";
-        $response = ($this->db->query($query))->fetchAll(PDO::FETCH_OBJ);
+        $response = ($this->db->query($query))->fetchAll();
         return $response;
     }
 

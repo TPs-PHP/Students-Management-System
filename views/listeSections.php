@@ -3,10 +3,13 @@
 <?php
 require_once '../config/db.php';
 require_once '../config/config.php';
+require_once '../classes/SectionRepository.php';
 $bdd = ConnexionDB::getInstance();
-$query = $bdd->query("SELECT *
+/*$query = $bdd->query("SELECT *
                       FROM sections");
-$sections = $query->fetchAll();
+$sections = $query->fetchAll();*/
+$sectionRepo = new SectionRepository();
+$sections = $sectionRepo->findAll();
 ?>
 
 <head>

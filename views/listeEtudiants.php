@@ -3,11 +3,16 @@
 <?php
 require_once '../config/db.php';
 require_once '../config/config.php';
+require_once '../classes/StudentRepository.php';
 $bdd = ConnexionDB::getInstance();
+$studentRepo = new StudentRepository();
+/*
 $query = $bdd->query("SELECT students.id, students.name, students.birthday, students.image, sections.designation AS section, sections.id AS section_id
                       FROM students 
                       JOIN sections ON students.section_id = sections.id");
 $students = $query->fetchAll();
+*/
+$students = $studentRepo->findAll();
 ?>
 
 <head>
