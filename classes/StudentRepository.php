@@ -14,5 +14,11 @@ class StudentRepository extends Repository{
         $result = $this->db->query($stmt);
         return $result->fetchAll();
     }
-    
+
+    public function findByName($name) {
+        $stmt = $this->query . " WHERE students.name LIKE :name";
+        $response = $this->db->prepare($stmt);
+        $response->execute(['name' => '%' . $name . '%']);
+        return $response->fetchAll();
+    }
 }

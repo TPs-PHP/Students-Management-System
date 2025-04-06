@@ -12,7 +12,13 @@ $query = $bdd->query("SELECT students.id, students.name, students.birthday, stud
                       JOIN sections ON students.section_id = sections.id");
 $students = $query->fetchAll();
 */
-$students = $studentRepo->findAll();
+// Check if a name filter is applied
+if (isset($_GET['name']) && !empty($_GET['name'])) {
+    $name = $_GET['name'];
+    $students = $studentRepo->findByName($name);
+} else {
+    $students = $studentRepo->findAll();
+}
 ?>
 
 <head>
@@ -56,8 +62,25 @@ $students = $studentRepo->findAll();
             <h4>Liste des étudiants</h4>
         </div>
         <div class="mb-3">
-            <input type="text" class="form-control d-inline-block w-50" placeholder="Veuillez renseigner votre nom">
-            <button class="btn btn-danger">Filtrer</button>
+            <input id="filterName" type="text" class="form-control d-inline-block w-50" placeholder="Veuillez renseigner votre nom">
+            <button class="btn btn-danger" id="filterButton">Filtrer</button>
+            <script>
+                function filterResult() {
+                    let name = document.getElementById('filterName').value;
+                    // valeur vide
+                    let url = "listeEtudiants.php";
+                    if(name.trim()){
+                        url += "?name=" + encodeURIComponent(name);
+                    }
+                    window.location.href = url;
+                }
+                document.getElementById('filterButton').addEventListener('click', filterResult);
+                document.getElementById('filterName').addEventListener('keypress', function(event) {
+                    if (event.key === 'Enter') {
+                        filterResult();
+                    }
+                });
+            </script>
             <a class="btn btn-primary" href="addStudent.php"><i class="fas fa-user-plus"></i></a>
         </div>
         <!-- Buttons -->
