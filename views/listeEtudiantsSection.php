@@ -65,7 +65,22 @@ if (isset($_GET['name']) && !empty($_GET['name'])) {
     <div class="container mt-4">
         <div class="container p-2 my-3
          border rounded bg-light">
-            <h4>Liste des étudiants</h4>
+            <h4>Liste des étudiants d<?php 
+                if ($section_filter == 1) { 
+                    echo "e Génie Logiciel"; 
+                } elseif ($section_filter == 2) {
+                    echo "e Réseaux Informatiques et Télécommunications";
+                } elseif ($section_filter == 3) {
+                    echo "'Informatique Industrielle et Automatique";
+                } elseif ($section_filter == 4) {
+                    echo "'Instrumentation et Maintenance Industrielle";
+                } elseif ($section_filter == 5) {
+                    echo "e Chimie Industrielle";
+                } elseif ($section_filter == 6) {
+                    echo "e Biologie Industrielle";
+                }
+                ?>
+            </h4>
         </div>
         <div class="mb-3">
             <input id="filterName" type="text" class="form-control d-inline-block w-50" placeholder="Veuillez renseigner votre nom">
