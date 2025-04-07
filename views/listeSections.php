@@ -4,7 +4,7 @@
 require_once '../config/db.php';
 require_once '../config/config.php';
 require_once '../classes/SectionRepository.php';
-$bdd = ConnexionDB::getInstance();
+//$bdd = ConnexionDB::getInstance();
 /*$query = $bdd->query("SELECT *
                       FROM sections");
 $sections = $query->fetchAll();*/
@@ -78,7 +78,13 @@ $sections = $sectionRepo->findAll();
                         <td><?= $section['designation'] ?></td>
                         <td><?= $section['description'] ?></td>
                         <td>
-                            <button class="btn btn-info btn-sm"><i class="fas fa-bars"></i></button>
+                            <button class="btn btn-info btn-sm" id="<?php echo $section['id'];?>" onclick="filtrer(<?php echo $section['id'];?>)"><i class="fas fa-bars"></i></button>
+                            <script>
+                                function filtrer(id){
+                                    url = "listeEtudiantsSection.php?section_filter=" + id;
+                                    window.location.href = url;
+                                }
+                            </script>
                         </td>
                     </tr>
                 <?php endforeach; ?>

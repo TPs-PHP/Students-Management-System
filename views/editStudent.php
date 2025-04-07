@@ -4,7 +4,7 @@
 require_once '../config/db.php';
 require_once '../config/config.php';
 
-$bdd = ConnexionDB::getInstance();
+//$bdd = ConnexionDB::getInstance();
 
 // Get values from URL
 $id = $_GET['id'] ?? null;

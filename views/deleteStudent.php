@@ -2,7 +2,7 @@
 require_once '../config/db.php';
 require_once '../config/config.php';
 require_once '../classes/StudentRepository.php';
-$bdd = ConnexionDB::getInstance();
+//$bdd = ConnexionDB::getInstance();
 $studentRepo = new StudentRepository();
 
 // Check if ID is provided

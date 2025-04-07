@@ -6,6 +6,10 @@ require_once '../config/config.php';
 require_once '../classes/StudentRepository.php';
 //$bdd = ConnexionDB::getInstance();
 $studentRepo = new StudentRepository();
+$section_filter = $_GET['section_filter'];
+if (filter_var($section_filter, FILTER_VALIDATE_INT) === false){
+    header("Location:listeSections.php");
+}
 /*
 $query = $bdd->query("SELECT students.id, students.name, students.birthday, students.image, sections.designation AS section, sections.id AS section_id
                       FROM students 
@@ -19,6 +23,8 @@ if (isset($_GET['name']) && !empty($_GET['name'])) {
 } else {
     $students = $studentRepo->findAll();
 }
+
+
 ?>
 
 <head>
@@ -68,9 +74,9 @@ if (isset($_GET['name']) && !empty($_GET['name'])) {
                 function filterResult() {
                     let name = document.getElementById('filterName').value;
                     // valeur vide
-                    let url = "listeEtudiants.php";
+                    let url = "listeEtudiantsSection.php?section_filter=" + "<?php echo $section_filter; ?>";
                     if(name.trim()){
-                        url += "?name=" + encodeURIComponent(name);
+                        url += "&name=" + encodeURIComponent(name);
                     }
                     window.location.href = url;
                 }
@@ -105,7 +111,8 @@ if (isset($_GET['name']) && !empty($_GET['name'])) {
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($students as $student): ?>
+                <?php foreach ($students as $student): 
+                    if ($student['section_id'] == $section_filter){?>
                     <tr>
                         <td><?php echo $student['id']; ?></td>
                         <td><img src="<?php echo "../uploads/" . $student['image']; ?>" class="rounded-circle" width="50" height="50"></td>
@@ -118,7 +125,8 @@ if (isset($_GET['name']) && !empty($_GET['name'])) {
                             <a class="btn btn-danger btn-sm" href="deleteStudent.php?id=<?php echo $student['id']; ?>" onclick="return confirm('Are you sure you want to delete this student?');"><i class="fas fa-trash"></i></a>
                         </td>
                     </tr>
-                <?php endforeach; ?>
+                <?php } 
+                endforeach; ?>
             </tbody>
         </table>
     </div>
