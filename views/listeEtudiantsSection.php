@@ -7,7 +7,7 @@ require_once '../classes/StudentRepository.php';
 //$bdd = ConnexionDB::getInstance();
 $studentRepo = new StudentRepository();
 $section_filter = $_GET['section_filter'];
-if (filter_var($section_filter, FILTER_VALIDATE_INT) === false){
+if (filter_var($section_filter, FILTER_VALIDATE_INT) === false) {
     header("Location:listeSections.php");
 }
 /*
@@ -65,21 +65,21 @@ if (isset($_GET['name']) && !empty($_GET['name'])) {
     <div class="container mt-4">
         <div class="container p-2 my-3
          border rounded bg-light">
-            <h4>Liste des étudiants d<?php 
-                if ($section_filter == 1) { 
-                    echo "e Génie Logiciel"; 
-                } elseif ($section_filter == 2) {
-                    echo "e Réseaux Informatiques et Télécommunications";
-                } elseif ($section_filter == 3) {
-                    echo "'Informatique Industrielle et Automatique";
-                } elseif ($section_filter == 4) {
-                    echo "'Instrumentation et Maintenance Industrielle";
-                } elseif ($section_filter == 5) {
-                    echo "e Chimie Industrielle";
-                } elseif ($section_filter == 6) {
-                    echo "e Biologie Industrielle";
-                }
-                ?>
+            <h4>Liste des étudiants d<?php
+                                        if ($section_filter == 1) {
+                                            echo "e Génie Logiciel";
+                                        } elseif ($section_filter == 2) {
+                                            echo "e Réseaux Informatiques et Télécommunications";
+                                        } elseif ($section_filter == 3) {
+                                            echo "'Informatique Industrielle et Automatique";
+                                        } elseif ($section_filter == 4) {
+                                            echo "'Instrumentation et Maintenance Industrielle";
+                                        } elseif ($section_filter == 5) {
+                                            echo "e Chimie Industrielle";
+                                        } elseif ($section_filter == 6) {
+                                            echo "e Biologie Industrielle";
+                                        }
+                                        ?>
             </h4>
         </div>
         <div class="mb-3">
@@ -90,7 +90,7 @@ if (isset($_GET['name']) && !empty($_GET['name'])) {
                     let name = document.getElementById('filterName').value;
                     // valeur vide
                     let url = "listeEtudiantsSection.php?section_filter=" + "<?php echo $section_filter; ?>";
-                    if(name.trim()){
+                    if (name.trim()) {
                         url += "&name=" + encodeURIComponent(name);
                     }
                     window.location.href = url;
@@ -126,21 +126,21 @@ if (isset($_GET['name']) && !empty($_GET['name'])) {
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($students as $student): 
-                    if ($student['section_id'] == $section_filter){?>
-                    <tr>
-                        <td><?php echo $student['id']; ?></td>
-                        <td><img src="<?php echo "../uploads/" . $student['image']; ?>" class="rounded-circle" width="50" height="50"></td>
-                        <td><?php echo $student['name']; ?></td>
-                        <td><?php echo $student['birthday']; ?></td>
-                        <td><?php echo $student['section']; ?></td>
-                        <td>
-                            <a class="btn btn-info btn-sm"><i class="fas fa-eye"></i></a>
-                            <a class="btn btn-warning btn-sm" href="editStudent.php?id=<?php echo $student['id']; ?>&name=<?php echo urlencode($student['name']); ?>&birthday=<?php echo $student['birthday']; ?>&section=<?php echo $student['section_id']; ?>"><i class="fas fa-edit"></i></a>
-                            <a class="btn btn-danger btn-sm" href="deleteStudent.php?id=<?php echo $student['id']; ?>" onclick="return confirm('Are you sure you want to delete this student?');"><i class="fas fa-trash"></i></a>
-                        </td>
-                    </tr>
-                <?php } 
+                <?php foreach ($students as $student):
+                    if ($student['section_id'] == $section_filter) { ?>
+                        <tr>
+                            <td><?php echo $student['id']; ?></td>
+                            <td><img src="<?php echo "../uploads/" . $student['image']; ?>" class="rounded-circle" width="50" height="50"></td>
+                            <td><?php echo $student['name']; ?></td>
+                            <td><?php echo $student['birthday']; ?></td>
+                            <td><?php echo $student['section']; ?></td>
+                            <td>
+                                <a class="btn btn-info btn-sm" href="profile.php?id=<?php echo $student['id']; ?>&name=<?php echo urlencode($student['name']); ?>&birthday=<?php echo $student['birthday']; ?>&section=<?php echo $student['section_id']; ?>&image=<?php echo $student['image']; ?>"><i class="fas fa-eye"></i></a>
+                                <a class="btn btn-warning btn-sm" href="editStudent.php?id=<?php echo $student['id']; ?>&name=<?php echo urlencode($student['name']); ?>&birthday=<?php echo $student['birthday']; ?>&section=<?php echo $student['section_id']; ?>"><i class="fas fa-edit"></i></a>
+                                <a class="btn btn-danger btn-sm" href="deleteStudent.php?id=<?php echo $student['id']; ?>" onclick="return confirm('Are you sure you want to delete this student?');"><i class="fas fa-trash"></i></a>
+                            </td>
+                        </tr>
+                <?php }
                 endforeach; ?>
             </tbody>
         </table>
@@ -161,19 +161,37 @@ if (isset($_GET['name']) && !empty($_GET['name'])) {
     <!-- DataTables Buttons JS -->
     <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
-    
 
 
-</body> 
+
+</body>
 <script>
     $(document).ready(function() {
         $('#studentsTable').DataTable({
             dom: 'Bfrtip',
-            buttons: [
-                {extend : 'copy', className : "btn btn-secondary", text: '<i class="fas fa-copy"></i> Copy', action: function (e, dt, node, config) {alert('Data has been copied to the clipboard!');}},
-                {extend : 'excel', className : "btn btn-secondary", text : '<i class="fas fa-file-excel"></i> Excel'},
-                {extend : 'csv', className : "btn btn-secondary", text : '<i class="fas fa-file-csv"></i> CSV'},
-                {extend : 'pdf', className : "btn btn-secondary", text : '<i class="fas fa-file-pdf"></i> PDF'}, 
+            buttons: [{
+                    extend: 'copy',
+                    className: "btn btn-secondary",
+                    text: '<i class="fas fa-copy"></i> Copy',
+                    action: function(e, dt, node, config) {
+                        alert('Data has been copied to the clipboard!');
+                    }
+                },
+                {
+                    extend: 'excel',
+                    className: "btn btn-secondary",
+                    text: '<i class="fas fa-file-excel"></i> Excel'
+                },
+                {
+                    extend: 'csv',
+                    className: "btn btn-secondary",
+                    text: '<i class="fas fa-file-csv"></i> CSV'
+                },
+                {
+                    extend: 'pdf',
+                    className: "btn btn-secondary",
+                    text: '<i class="fas fa-file-pdf"></i> PDF'
+                },
             ]
         });
     });

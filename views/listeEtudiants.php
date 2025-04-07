@@ -69,7 +69,7 @@ if (isset($_GET['name']) && !empty($_GET['name'])) {
                     let name = document.getElementById('filterName').value;
                     // valeur vide
                     let url = "listeEtudiants.php";
-                    if(name.trim()){
+                    if (name.trim()) {
                         url += "?name=" + encodeURIComponent(name);
                     }
                     window.location.href = url;
@@ -113,7 +113,7 @@ if (isset($_GET['name']) && !empty($_GET['name'])) {
                         <td><?php echo $student['birthday']; ?></td>
                         <td><?php echo $student['section']; ?></td>
                         <td>
-                            <a class="btn btn-info btn-sm"><i class="fas fa-eye"></i></a>
+                            <a class="btn btn-info btn-sm" href="profile.php?id=<?php echo $student['id']; ?>&name=<?php echo urlencode($student['name']); ?>&birthday=<?php echo $student['birthday']; ?>&section=<?php echo $student['section_id']; ?>&image=<?php echo $student['image']; ?>"><i class="fas fa-eye"></i></a>
                             <a class="btn btn-warning btn-sm" href="editStudent.php?id=<?php echo $student['id']; ?>&name=<?php echo urlencode($student['name']); ?>&birthday=<?php echo $student['birthday']; ?>&section=<?php echo $student['section_id']; ?>"><i class="fas fa-edit"></i></a>
                             <a class="btn btn-danger btn-sm" href="deleteStudent.php?id=<?php echo $student['id']; ?>" onclick="return confirm('Are you sure you want to delete this student?');"><i class="fas fa-trash"></i></a>
                         </td>
@@ -138,19 +138,37 @@ if (isset($_GET['name']) && !empty($_GET['name'])) {
     <!-- DataTables Buttons JS -->
     <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
-    
 
 
-</body> 
+
+</body>
 <script>
     $(document).ready(function() {
         $('#studentsTable').DataTable({
             dom: 'Bfrtip',
-            buttons: [
-                {extend : 'copy', className : "btn btn-secondary", text: '<i class="fas fa-copy"></i> Copy', action: function (e, dt, node, config) {alert('Data has been copied to the clipboard!');}},
-                {extend : 'excel', className : "btn btn-secondary", text : '<i class="fas fa-file-excel"></i> Excel'},
-                {extend : 'csv', className : "btn btn-secondary", text : '<i class="fas fa-file-csv"></i> CSV'},
-                {extend : 'pdf', className : "btn btn-secondary", text : '<i class="fas fa-file-pdf"></i> PDF'}, 
+            buttons: [{
+                    extend: 'copy',
+                    className: "btn btn-secondary",
+                    text: '<i class="fas fa-copy"></i> Copy',
+                    action: function(e, dt, node, config) {
+                        alert('Data has been copied to the clipboard!');
+                    }
+                },
+                {
+                    extend: 'excel',
+                    className: "btn btn-secondary",
+                    text: '<i class="fas fa-file-excel"></i> Excel'
+                },
+                {
+                    extend: 'csv',
+                    className: "btn btn-secondary",
+                    text: '<i class="fas fa-file-csv"></i> CSV'
+                },
+                {
+                    extend: 'pdf',
+                    className: "btn btn-secondary",
+                    text: '<i class="fas fa-file-pdf"></i> PDF'
+                },
             ]
         });
     });
