@@ -17,11 +17,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Fetch the user data
     $user = $stmt->fetch();
 
-    // Debugging: Output the fetched user data
-    echo "<pre>";
-    print_r($user);
-    echo "</pre>";
-
     // Check if the user exists and the password is correct
     if ($user && password_verify($password, $user['password'])) {
         // Password is correct, start session and redirect to home.php
@@ -65,12 +60,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <input type="password" class="form-control" id="password" name="password" required>
                 </div>
 
-                <!-- Remember Me -->
-                <div class="mb-3 form-check">
-                    <input type="checkbox" class="form-check-input" id="rememberMe">
-                    <label class="form-check-label" for="rememberMe">Remember me</label>
-                </div>
-
                 <!-- Login Button -->
                 <button type="submit" class="btn btn-primary w-100">Login</button>
 
@@ -78,8 +67,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <?php if (isset($error_message)): ?>
                     <div class="alert alert-danger mt-3"><?= $error_message ?></div>
                 <?php endif; ?>
-
-                <!-- Forgot Password -->
                 
             </form>
         </div>

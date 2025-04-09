@@ -11,13 +11,9 @@ if (!isset($_SESSION['user_id'])) {
 <!DOCTYPE html>
 <html lang="fr">
 <?php
-require_once '../config/db.php';
-require_once '../config/config.php';
+
 require_once '../classes/SectionRepository.php';
-//$bdd = ConnexionDB::getInstance();
-/*$query = $bdd->query("SELECT *
-                      FROM sections");
-$sections = $query->fetchAll();*/
+
 $sectionRepo = new SectionRepository();
 $sections = $sectionRepo->findAll();
 ?>
@@ -62,15 +58,7 @@ $sections = $sectionRepo->findAll();
          border rounded bg-light">
             <h4>Liste des séctions</h4>
         </div>
-        <!-- Buttons -->
-        <!--
-        <div class="mb-3 p-2">
-            <button class="btn btn-secondary"><i class="fas fa-copy"></i> Copy</button>
-            <button class="btn btn-secondary"><i class="fas fa-file-excel"></i> Excel</button>
-            <button class="btn btn-secondary"><i class="fas fa-file-csv"></i> CSV</button>
-            <button class="btn btn-secondary"><i class="fas fa-file-pdf"></i> PDF</button>
-        </div>
-        -->
+        
         <!-- Table -->
         <table id="studentsTable" class="table pt-3 table-bordered table-hover">
             <thead>

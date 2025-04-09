@@ -94,10 +94,9 @@ if (!isset($_SESSION['user_id'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 <?php
-require_once '../config/db.php';
-require_once '../config/config.php';
+
 require_once '../classes/StudentRepository.php';
-//$bdd = ConnexionDB::getInstance();
+
 $student_repo = new StudentRepository();
 if (isset($_POST['submit'])) {
     $params= [
@@ -113,8 +112,6 @@ if (isset($_POST['submit'])) {
     if (!in_array($_FILES['image']['type'], $allowed_types)) {
         echo "<script>alert('Invalid image format. Only JPG, PNG, and GIF allowed.');</script>";
     } elseif (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
-        /*$stmt = $bdd->prepare("INSERT INTO students (name, birthday, section_id, image) VALUES (?, ?, ?, ?)");
-        $stmt->execute([$name, $birthday, $section, $image]);*/
         $student_repo->create($params);
         echo "<script>alert('Student added successfully!'); window.location.href='listeEtudiants.php';</script>";
     } else {

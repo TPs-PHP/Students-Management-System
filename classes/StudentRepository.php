@@ -4,8 +4,15 @@ class StudentRepository extends Repository{
     private $query = "SELECT students.id, students.name, students.birthday, students.image, sections.designation AS section, sections.id AS section_id
                         FROM students 
                         JOIN sections ON students.section_id = sections.id";
-    public function __construct(){
+    public $id, $name, $birthday, $image, $section_id, $section;
+    public function __construct($id=null, $name=null, $birthday=null, $image=null, $section_id=null, $section=null){
         parent::__construct("students");
+        $this->id = $id;
+        $this->name = $name;
+        $this->birthday = $birthday;
+        $this->image = $image;
+        $this->section_id = $section_id;
+        $this->section = $section;
     }
 
     //redefine the findAll method to JOIN the sections table

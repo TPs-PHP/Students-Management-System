@@ -11,10 +11,6 @@ if (!isset($_SESSION['user_id'])) {
 <!DOCTYPE html>
 <html lang="en">
 <?php
-require_once '../config/db.php';
-require_once '../config/config.php';
-
-//$bdd = ConnexionDB::getInstance();
 
 // Get values from URL
 $id = $_GET['id'] ?? null;
@@ -133,12 +129,8 @@ if (isset($_POST['submit'])) {
         echo "<script>alert('Invalid image format. Only JPG, PNG, and GIF allowed.');</script>";
     } elseif (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
         // Check if the student exists
-        /*$stmt = $bdd->prepare("SELECT COUNT(*) FROM students WHERE id = ?");
-        $stmt->execute([$id]);
-        $count = $stmt->fetchColumn();
-        */
         $stmt = $studentRepo->findById($id);
-        if (/*$count == 0*/ !$stmt) {
+        if (!$stmt) {
             echo "<script>alert('Student not found.'); window.location.href='listeEtudiants.php';</script>";
             exit;
         }
@@ -151,10 +143,6 @@ if (isset($_POST['submit'])) {
             'image' => $image,
             'id' => $id
         ];
-        /*
-        $stmt = $bdd->prepare("UPDATE students SET name = ?, birthday = ?, section_id = ?, image = ? WHERE id = ?");
-        $result = $stmt->execute([$name, $birthday, $section, $image, $id]);
-        */
         $result = $studentRepo->update($params);
         if (!$result) {
             var_dump($stmt->errorInfo());

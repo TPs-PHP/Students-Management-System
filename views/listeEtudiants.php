@@ -8,17 +8,11 @@ if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit;
 }
-require_once '../config/db.php';
-require_once '../config/config.php';
+
 require_once '../classes/StudentRepository.php';
-//$bdd = ConnexionDB::getInstance();
+
 $studentRepo = new StudentRepository();
-/*
-$query = $bdd->query("SELECT students.id, students.name, students.birthday, students.image, sections.designation AS section, sections.id AS section_id
-                      FROM students 
-                      JOIN sections ON students.section_id = sections.id");
-$students = $query->fetchAll();
-*/
+
 // Check if a name filter is applied
 if (isset($_GET['name']) && !empty($_GET['name'])) {
     $name = $_GET['name'];
@@ -94,15 +88,7 @@ $isAdmin = isset($_SESSION['role']) && $_SESSION['role'] === 'admin';
                 <a class="btn btn-primary" href="addStudent.php"><i class="fas fa-user-plus"></i></a>
             <?php endif; ?>
         </div>
-        <!-- Buttons -->
-        <!--
-            <div class="mb-3 p-2">
-            <button class="btn btn-secondary"><i class="fas fa-copy"></i> Copy</button>
-            <button class="btn btn-secondary"><i class="fas fa-file-excel"></i> Excel</button>
-            <button class="btn btn-secondary"><i class="fas fa-file-csv"></i> CSV</button>
-            <button class="btn btn-secondary"><i class="fas fa-file-pdf"></i> PDF</button>
-        </div>
-        -->
+        
         <!-- Table -->
         <table id="studentsTable" class="table pt-3 table-bordered table-hover">
             <thead>

@@ -7,6 +7,7 @@ if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit;
 }
+$role = $_SESSION['role']==='admin' ? 'administrator': 'student';
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -40,7 +41,7 @@ if (!isset($_SESSION['user_id'])) {
             </div>
         </div>
     </nav>
-    <h1 style="margin-left: 20px; margin-top: 20px;">Hello, PHP LOVERS! Welcome to your administration Platform</h1>
+    <h1 style="margin-left: 20px; margin-top: 20px;">Hello, PHP LOVERS! Welcome to your <?php echo $role?> Platform</h1>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -11,10 +11,9 @@ if (!isset($_SESSION['user_id'])) {
 <!DOCTYPE html>
 <html lang="fr">
 <?php
-require_once '../config/db.php';
-require_once '../config/config.php';
+
 require_once '../classes/SectionRepository.php';
-//$bdd = ConnexionDB::getInstance();
+
 $sectionRepo = new SectionRepository();
 $id = $_GET['id'] ?? null;
 $name = $_GET['name'] ?? null;
