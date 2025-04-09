@@ -1,4 +1,14 @@
 <?php
+session_start();
+
+if (!isset($_SESSION['user_id'])) {
+    $_SESSION = []; // Clear session data
+    session_destroy(); // Destroy the session
+    header('Location: login.php');
+    exit;
+}
+?>
+<?php
 require_once '../config/db.php';
 require_once '../config/config.php';
 require_once '../classes/StudentRepository.php';
