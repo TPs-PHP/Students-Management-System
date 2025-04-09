@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <?php
+session_start();
 require_once '../config/db.php';
 require_once '../config/config.php';
 require_once '../classes/StudentRepository.php';
@@ -19,6 +20,8 @@ if (isset($_GET['name']) && !empty($_GET['name'])) {
 } else {
     $students = $studentRepo->findAll();
 }
+
+$isAdmin = isset($_SESSION['role']) && $_SESSION['role'] === 'admin';
 ?>
 
 <head>
@@ -81,7 +84,9 @@ if (isset($_GET['name']) && !empty($_GET['name'])) {
                     }
                 });
             </script>
-            <a class="btn btn-primary" href="addStudent.php"><i class="fas fa-user-plus"></i></a>
+            <?php if ($isAdmin): ?>
+                <a class="btn btn-primary" href="addStudent.php"><i class="fas fa-user-plus"></i></a>
+            <?php endif; ?>
         </div>
         <!-- Buttons -->
         <!--
@@ -114,8 +119,12 @@ if (isset($_GET['name']) && !empty($_GET['name'])) {
                         <td><?php echo $student['section']; ?></td>
                         <td>
                             <a class="btn btn-info btn-sm" href="profile.php?id=<?php echo $student['id']; ?>&name=<?php echo urlencode($student['name']); ?>&birthday=<?php echo $student['birthday']; ?>&section=<?php echo $student['section_id']; ?>&image=<?php echo $student['image']; ?>"><i class="fas fa-eye"></i></a>
-                            <a class="btn btn-warning btn-sm" href="editStudent.php?id=<?php echo $student['id']; ?>&name=<?php echo urlencode($student['name']); ?>&birthday=<?php echo $student['birthday']; ?>&section=<?php echo $student['section_id']; ?>"><i class="fas fa-edit"></i></a>
+                            <?php if ($isAdmin): ?>
+                                <a class="btn btn-primary" href="addStudent.php"><i class="fas fa-user-plus"></i></a>
+                                <a class="btn btn-warning btn-sm" href="editStudent.php?id=<?php echo $student['id']; ?>&name=<?php echo urlencode($student['name']); ?>&birthday=<?php echo $student['birthday']; ?>&section=<?php echo $student['section_id']; ?>"><i class="fas fa-edit"></i></a>
+                                
                             <a class="btn btn-danger btn-sm" href="deleteStudent.php?id=<?php echo $student['id']; ?>" onclick="return confirm('Are you sure you want to delete this student?');"><i class="fas fa-trash"></i></a>
+                            <?php endif; ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>
